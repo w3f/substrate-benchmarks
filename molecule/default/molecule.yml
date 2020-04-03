@@ -4,9 +4,6 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: ubuntu
-    image: docker.io/ubuntu
-    pre_build_image: true
   - name: custom
     image: test-image
     dockerfile: ./dockerfile.j2
