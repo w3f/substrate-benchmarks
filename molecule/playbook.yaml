@@ -1,4 +1,5 @@
-- name: benchmark
+---
+- name: Converge
   hosts: localhost
   gather_facts: yes
   roles:

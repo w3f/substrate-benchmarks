@@ -6,8 +6,17 @@ driver:
 platforms:
   - name: custom
     image: test-image
-    dockerfile: ./dockerfile.j2
+    dockerfile: ./Dockerfile.j2
 provisioner:
   name: ansible
+  lint:
+    name: ansible-lint
+    enabled: false
+  playbooks:
+    prepare: prepare-docker-in-docker.yml
+    converge: ../playbook.yml
+lint:
+  name: yamllint
+  enabled: false
 verifier:
   name: ansible
