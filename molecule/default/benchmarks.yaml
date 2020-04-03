@@ -1,0 +1,5 @@
+- name: benchmark
+  hosts: localhost
+  gather_facts: yes
+  roles:
+     - substrate-benchmarks

@@ -1,0 +1,18 @@
+FROM ubuntu:18.04
+
+RUN set -ex \
+    && apt-get clean \
+    && apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y --no-install-recommends git apt-utils apt-transport-https ca-certificates software-properties-common curl \
+    && apt-add-repository --yes --update ppa:ansible/ansible \
+    && apt-get install -y python-pip ansible
+
+RUN pip install google-auth docker molecule
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && apt-get update -y && apt-get install google-cloud-sdk -y
+
+#COPY /home/pantelis/.gcloud/credentials.json /root/.gcloud/credentials.json
+#RUN gcloud auth activate-service-account --key-file=/root/.gcloud/credentials.json && RUN gcloud config set project polkadot-benchmarks
+
+COPY benchmarks.yaml benchmarks.yaml
+RUN ansible-playbook -e steps=0 -e repeat=1 benchmarks.yaml
