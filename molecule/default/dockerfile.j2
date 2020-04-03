@@ -15,4 +15,5 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.c
 #RUN gcloud auth activate-service-account --key-file=/root/.gcloud/credentials.json && RUN gcloud config set project polkadot-benchmarks
 
 COPY benchmarks.yaml benchmarks.yaml
-RUN ansible-playbook -e steps=0 -e repeat=1 benchmarks.yaml
+RUN git clone https://github.com/w3f/substrate-benchmarks.git
+#RUN ansible-playbook -e steps=0 -e repeat=1 benchmarks.yaml

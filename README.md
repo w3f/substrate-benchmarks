@@ -5,10 +5,7 @@ A brief description of the role goes here.
 
 Requirements
 ------------
-
-google-auth docker molecule
-
-
+google-auth, which can be installed by: ```pip install google-auth```
 
 Role Variables
 --------------
