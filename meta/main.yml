@@ -1,6 +1,6 @@
 galaxy_info:
   author: Pantelis Ampatzoglou
-  description: Substrate benchmark
+  description: Substrate benchmark role based on the work by Fabio Lama.
   company: Web3 Foundation
 
   license: Apache-2.0
