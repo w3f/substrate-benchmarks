@@ -1,3 +1,8 @@
+pip install -r requirements.txt
+$ ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519_gcp_compute_gcp-ansible -C "first.last@domain.com"
+$ ansible-playbook -i inventories/gcp-ansible.gcp.yml playbooks/10_infras.yml --tags "create"
+
+
 Role Name
 =========
 

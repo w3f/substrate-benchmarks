@@ -10,3 +10,4 @@ service_account_file: '$HOME/.gcloud/credentials.json'
 auth_kind: serviceaccount
 
 #ansible-inventory --list -i dynamic-inventory.gcp.yml
+#ansible -i dynamic-inventory.gcp.yml -m ping

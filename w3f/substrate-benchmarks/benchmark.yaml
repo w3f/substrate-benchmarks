@@ -1,22 +1,8 @@
 ---
 - name: provision
   hosts: localhost
-  gather_facts: yes
-  vars:
-   set_region: europe-west3
+  gather_facts: no
+  connection: local
   roles:
-     - create-gcp
-
-- name: run benchmark
-  hosts: dynamic-inventory.gcp.yml
-  gather_facts: yes
-  vars:
-   set_region: europe-west3
-
-- name: destroy
-  hosts: localhost
-  gather_facts: yes
-  vars:
-   set_region: europe-west3
-  roles:
-     - destroy-gcp
+    - role: gcp
+      tags: create
