@@ -7,14 +7,20 @@
   vars:
    set_region: europe-west3
 
----
-- name: run
+- name: run benchmark
 # ansible-inventory --list -i dynamic-inventory.gcp.yml
   hosts: dynamic-inventory.gcp.yml
   # hosts: "{{ target | default('ubuntu_18_04') }}"
   gather_facts: yes
+  roles:
+     - substrate-benchmarks
+  vars:
+   set_region: europe-west3
 
-
-
-
----
+- name: destroy
+  hosts: localhost
+  gather_facts: yes
+  roles:
+     - destroy-gcp
+  vars:
+   set_region: europe-west3
