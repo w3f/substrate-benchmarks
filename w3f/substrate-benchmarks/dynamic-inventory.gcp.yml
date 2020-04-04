@@ -1,0 +1,9 @@
+plugin: gcp_compute
+zones: europe-west3-a
+projects: polkadot-benchmarks
+auth_kind: serviceaccount
+service_account_file: '$HOME/.gcloud/credentials.json'
+scopes:
+  - https://www.googleapis.com/auth/compute
+keyed_groups:
+   - key: labels

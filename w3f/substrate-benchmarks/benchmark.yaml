@@ -1,0 +1,20 @@
+---
+- name: provision
+  hosts: localhost
+  gather_facts: yes
+  roles:
+     - create-gcp
+  vars:
+   set_region: europe-west3
+
+---
+- name: run
+# ansible-inventory --list -i dynamic-inventory.gcp.yml
+  hosts: dynamic-inventory.gcp.yml
+  # hosts: "{{ target | default('ubuntu_18_04') }}"
+  gather_facts: yes
+
+
+
+
+---

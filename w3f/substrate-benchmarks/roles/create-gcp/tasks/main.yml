@@ -59,3 +59,7 @@
       scopes:
         - https://www.googleapis.com/auth/compute
   register: instance
+- name: create ssh key
+  openssh_keypair:
+    path: /tmp/id_ssh_rsa
+    size: 2048

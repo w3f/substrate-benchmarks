@@ -1,0 +1,11 @@
+docker
+ansible
+ansible-lint
+yamllint
+mazer
+molecule
+molecule[docker] # requires libyaml-devel
+requests
+apache-libcloud
+google-auth
+packet-python
