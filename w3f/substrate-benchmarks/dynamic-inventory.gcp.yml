@@ -1,9 +1,12 @@
 plugin: gcp_compute
-zones: europe-west3-a
-projects: polkadot-benchmarks
-auth_kind: serviceaccount
-service_account_file: '$HOME/.gcloud/credentials.json'
+projects:
+  - polkadot-benchmarks
+filters:
+  - labels.benchmark = true
+  - labels.environment = testing
 scopes:
   - https://www.googleapis.com/auth/compute
-keyed_groups:
-   - key: labels
+service_account_file: '$HOME/.gcloud/credentials.json'
+auth_kind: serviceaccount
+
+#ansible-inventory --list -i dynamic-inventory.gcp.yml

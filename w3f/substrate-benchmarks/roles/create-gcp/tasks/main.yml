@@ -41,7 +41,7 @@
       machine_type: "{{ type }}"
       labels:
         benchmark: true
-        environment: test
+        environment: testing
       disks:
         - auto_delete: true
           boot: true
