@@ -1,0 +1,30 @@
+galaxy_info:
+  role_name: 'polkadot-module-benchmarks'
+  description: Downloads the substrate benchmarking binary on multiple machines, executes those and collects the results.
+  author: Fabio Lama
+  company: Web3 Foundation
+  license: BSD-3-Clause
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: EL
+      versions:
+        - 8
+    - name: Fedora
+      versions:
+        - 27
+    - name: Debian
+      versions:
+        - buster
+    - name: Ubuntu
+      versions:
+        - bionic
+
+  galaxy_tags:
+    - polkadot
+    - substrate
+    - benchmarks
+    - weights
+    - parity
+    - w3f
+    - web3

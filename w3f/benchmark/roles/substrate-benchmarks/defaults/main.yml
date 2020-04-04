@@ -1,16 +1,8 @@
 ---
-# vars file for default
-gcp_project:  "{{ project | default('polkadot-benchmarks') }}"
-gcp_cred_kind: serviceaccount
-gcp_cred_file: "{{ gcp_credentials | default('$HOME/.gcloud/credentials.json') }}"
-type: "{{ machine | default('n1-standard-1') }}"
-region: "{{ set_region | default('us-central1') }}"
-zone: '{{ region }}-a'
-image: "{{ set_image | default('projects/ubuntu-os-cloud/global/images/family/ubuntu-1804-lts') }}"
-work_dir: '/home/{{ansible_user}}/substrate-benchmarks/{{ type }}/{{ ansible_date_time.iso8601 }}'
-substrate_binary_url: "{{ set_substrate_binary_url | default('https://github.com/lamafab/substrate-graph-benchmarks/releases/download/v0.1.0/substrate') }}"
-benchmark_steps: "{{ steps | default(10) }}"
-benchmark_repeat: "{{ repeat | default(10) }}"
+# defaults file for substrate-benchmarks
+benchmarking_binary_url: 'https://github.com/lamafab/substrate-graph-benchmarks/releases/download/v0.1.0/substrate'
+benchmark_steps: 10
+benchmark_repeat: 10
 benchmarks:
   - ['pallet-balances', 'transfer'] # worst case
   - ['pallet-balances', 'transfer_best_case']
@@ -61,3 +53,19 @@ benchmarks:
   - ['pallet-staking', 'reap_stash']
   - ['pallet-staking', 'new_era']
   - ['pallet-staking', 'do_slash']
+  #
+  - ['pallet-im-online', 'heartbeat']
+  - ['pallet-im-online', 'validate_unsigned']
+  #
+  - ['pallet-treasury', 'propose_spend']
+  - ['pallet-treasury', 'reject_proposal']
+  - ['pallet-treasury', 'approve_proposal']
+  - ['pallet-treasury', 'report_awesome']
+  - ['pallet-treasury', 'retract_tip']
+  - ['pallet-treasury', 'tip_new']
+  - ['pallet-treasury', 'tip']
+  - ['pallet-treasury', 'close_tip']
+  - ['pallet-treasury', 'on_initialize']
+
+# Generally there's no reason to adjust this
+remote_work_dir: '{{ansible_env.HOME}}/polkadot-module-benchmarking'

@@ -1,0 +1,61 @@
+---
+# tasks file for create-gcp
+- name: create a disk
+  gcp_compute_disk:
+      name: 'benchmark-disk'
+      size_gb: 20
+      source_image: "{{ image }}"
+      zone: "{{ zone }}"
+      project: "{{ gcp_project }}"
+      auth_kind: "{{ gcp_cred_kind }}"
+      service_account_file: "{{ gcp_cred_file }}"
+      scopes:
+        - https://www.googleapis.com/auth/compute
+      state: present
+  register: disk
+- name: create a network
+  gcp_compute_network:
+      name: 'network-instance'
+      project: "{{ gcp_project }}"
+      auth_kind: "{{ gcp_cred_kind }}"
+      service_account_file: "{{ gcp_cred_file }}"
+      scopes:
+        - https://www.googleapis.com/auth/compute
+      state: present
+  register: network
+- name: create a address
+  gcp_compute_address:
+      name: 'address-instance'
+      region: "{{ region }}"
+      project: "{{ gcp_project }}"
+      auth_kind: "{{ gcp_cred_kind }}"
+      service_account_file: "{{ gcp_cred_file }}"
+      scopes:
+        - https://www.googleapis.com/auth/compute
+      state: present
+  register: address
+- name: create the benchmark machine
+  gcp_compute_instance:
+      state: present
+      name: benchmark-vm
+      machine_type: "{{ type }}"
+      labels:
+        benchmark: true
+        environment: test
+      disks:
+        - auto_delete: true
+          boot: true
+          source: "{{ disk }}"
+      network_interfaces:
+          - network: "{{ network }}"
+            access_configs:
+              - name: 'External NAT'
+                nat_ip: "{{ address }}"
+                type: 'ONE_TO_ONE_NAT'
+      zone: "{{ zone }}"
+      project: "{{ gcp_project }}"
+      auth_kind: "{{ gcp_cred_kind }}"
+      service_account_file: "{{ gcp_cred_file }}"
+      scopes:
+        - https://www.googleapis.com/auth/compute
+  register: instance
