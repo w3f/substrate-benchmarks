@@ -66,8 +66,11 @@
   openssh_keypair:
     type: ed25519
     path: ./id_ed25519
-    comment: root
-  register: ssh_public_key
+    comment: "{{ ansible_user }}"
+  register: ssh_key
+
+- debug:
+    var: ssh_key
 
 - name: Create instance
   gcp_compute_instance:
@@ -75,11 +78,8 @@
     name: "{{ instance_name }}"
     machine_type: "{{ machine_type }}"
     metadata:
-      items:
-      - key: enable-oslogin
-        value: true
-      - key: ssh-keys
-        value: "{{ ssh_public_key }}"
+      enable-oslogin: true
+      ssh-keys: "{{ ssh_key.public_key }}"
     labels:
       benchmark: true
       environment: testing
@@ -106,5 +106,10 @@
     service_account_file: "{{ gcp_cred_file }}"
   register: instance
 
-- debug:
-    var: instance
+- name: Printout instance
+  debug:
+    msg: "{{ instance }}"
+
+- name: Set inventory
+  set_fact:
+    inventory: "{{ instance.networkInterfaces[0].accessConfigs[0].natIP }}"

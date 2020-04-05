@@ -11,8 +11,24 @@
       name: "{{ provider }}"
     vars:
       stage: CREATE
-  - name: Run
-  - name: Clear
+
+- name: run
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: Printout instance
+    debug:
+      msg: "{{inventory}}"
+
+
+- name: provision
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+    provider: gcp
+  tasks:
+  - name: Provision benchmark
     include_role:
       name: "{{ provider }}"
     vars:
