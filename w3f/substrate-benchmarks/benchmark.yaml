@@ -3,5 +3,17 @@
   hosts: localhost
   gather_facts: no
   connection: local
-  roles:
-  - role: gcp_create
+  vars:
+    provider: gcp
+  tasks:
+  - name: Provision benchmark
+    include_role:
+      name: "{{ provider }}"
+    vars:
+      stage: CREATE
+  - name: Run
+  - name: Clear
+    include_role:
+      name: "{{ provider }}"
+    vars:
+      stage: DESTROY
