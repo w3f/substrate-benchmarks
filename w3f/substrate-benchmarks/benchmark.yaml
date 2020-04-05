@@ -1,32 +1,38 @@
 ---
+- name: configure
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  tasks:
+  - name: Set provider
+    set_fact:
+      provider: gcp
+
 - name: provision
   hosts: localhost
   gather_facts: no
   connection: local
-  vars:
-    provider: gcp
   tasks:
   - name: Provision benchmark
     include_role:
       name: "{{ provider }}"
     vars:
       stage: CREATE
+      machine_type: "e2-standard-2"
 
-- name: run
+- name: run benchmark
   hosts: localhost
   gather_facts: no
   tasks:
-  - name: Printout instance
+  - name: Printout target
     debug:
-      msg: "{{inventory}}"
+      msg: "{{ target }}"
 
 
 - name: provision
   hosts: localhost
   gather_facts: no
   connection: local
-  vars:
-    provider: gcp
   tasks:
   - name: Provision benchmark
     include_role:

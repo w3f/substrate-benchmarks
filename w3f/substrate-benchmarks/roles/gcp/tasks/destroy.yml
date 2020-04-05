@@ -1,5 +1,4 @@
 ---
-
 - name: Delete instance
   gcp_compute_instance:
     state: absent
@@ -10,35 +9,7 @@
     auth_kind: "{{ gcp_cred_kind }}"
     service_account_file: "{{ gcp_cred_file }}"
 
-- name: Close port
-  gcp_compute_firewall:
-    name: benchmark-firewall-ssh
-    network: "{{ network }}"
-    project: "{{ gcp_project }}"
-    auth_kind: "{{ gcp_cred_kind }}"
-    service_account_file: "{{ gcp_cred_file }}"
-    state: absent
-
-- name: Delete disk
-  gcp_compute_disk:
-    name: "{{ instance_name }}"
-    size_gb: "{{ disk_size_gb }}"
-    zone: "{{ zone }}"
-    project: "{{ gcp_project }}"
-    auth_kind: "{{ gcp_cred_kind }}"
-    service_account_file: "{{ gcp_cred_file }}"
-    state: absent
-
-- name: Reselase IP
-  gcp_compute_address:
-    name: "{{ instance_name }}"
-    region: "{{ region }}"
-    project: "{{ gcp_project }}"
-    auth_kind: "{{ gcp_cred_kind }}"
-    service_account_file: "{{ gcp_cred_file }}"
-    state: absent
-
-- name: Reselase subnet
+- name: Release subnet
   gcp_compute_subnetwork:
     name: gcp-benchmark-subnet
     region: "{{ region }}"
@@ -49,9 +20,42 @@
     service_account_file: "{{ gcp_cred_file }}"
     state: absent
 
+- name: Close port
+  gcp_compute_firewall:
+    name: benchmark-firewall-ssh
+    network: "{{ network }}"
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: absent
+
+- name: Release IP
+  gcp_compute_address:
+    name: "{{ instance_name }}"
+    region: "{{ region }}"
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: absent
+
+- name: Delete disk
+  gcp_compute_disk:
+    name: "{{ instance_name }}"
+    size_gb: "{{ disk_size_gb }}"
+    source_image: "{{ image }}"
+    labels:
+      benchmark: true
+      environment: testing
+    zone: "{{ zone }}"
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: absent
+
 - name: Delete VPC
   gcp_compute_network:
     name: gcp-benchmark-network
+    auto_create_subnetworks: yes
     project: "{{ gcp_project }}"
     auth_kind: "{{ gcp_cred_kind }}"
     service_account_file: "{{ gcp_cred_file }}"

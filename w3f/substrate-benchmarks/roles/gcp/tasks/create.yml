@@ -110,6 +110,6 @@
   debug:
     msg: "{{ instance }}"
 
-- name: Set inventory
+- name: Set target
   set_fact:
-    inventory: "{{ instance.networkInterfaces[0].accessConfigs[0].natIP }}"
+    target: "{{ instance.networkInterfaces[0].accessConfigs[0].natIP }}"
