@@ -4,5 +4,4 @@
   gather_facts: no
   connection: local
   roles:
-    - role: gcp
-      tags: create
+  - role: gcp_create

@@ -1,0 +1,5 @@
+---
+# defaults file for create-gcp
+instance_name: gcp-benchmark
+disk_size_gb: 15
+ip_cidr_range: 172.16.0.0/28

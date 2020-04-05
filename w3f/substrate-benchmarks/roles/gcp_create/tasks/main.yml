@@ -62,11 +62,24 @@
     state: present
   register: disk
 
+- name: Generate an OpenSSH keypair
+  openssh_keypair:
+    type: ed25519
+    path: ./id_ed25519
+    comment: root
+  register: ssh_public_key
+
 - name: Create instance
   gcp_compute_instance:
     state: present
     name: "{{ instance_name }}"
     machine_type: "{{ machine_type }}"
+    metadata:
+      items:
+      - key: enable-oslogin
+        value: true
+      - key: ssh-keys
+        value: "{{ ssh_public_key }}"
     labels:
       benchmark: true
       environment: testing
@@ -92,16 +105,6 @@
     auth_kind: "{{ gcp_cred_kind }}"
     service_account_file: "{{ gcp_cred_file }}"
   register: instance
-
-- name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
-  openssh_keypair:
-    path: ./id_ssh_rsa
-#- name: Ensure that you have the latest version of the gcloud command-line tool/.
-#  shell:
-#    cmd: gcloud components update
-#- name: Connect to the instance./.
-#  shell:
-#    cmd: gcloud compute ssh --project "{{ gcp_project }}" --zone "{{ zone }}" "{{ instance_name }}"
 
 - debug:
     var: instance
