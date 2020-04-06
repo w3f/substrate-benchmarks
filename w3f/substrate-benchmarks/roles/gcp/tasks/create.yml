@@ -67,8 +67,8 @@
 
 - name: Generate an OpenSSH keypair
   openssh_keypair:
-    type: ed25519
-    path: ./id_ed25519
+    type: rsa # ed25519
+    path: ./id_rsa # ./id_ed25519
     comment: "{{ remote_user }}"
   register: ssh_key
 
@@ -82,7 +82,7 @@
     machine_type: "{{ machine_type }}"
     metadata:
       enable-oslogin: true
-      ssh-keys: "{{ ssh_key.comment }}:{{ ssh_key.public_key }}"
+      ssh-keys: "{{ ssh_key.comment }}:{{ ssh_key.public_key }} {{ ssh_key.comment }}"
     labels:
       benchmark: true
       environment: testing
