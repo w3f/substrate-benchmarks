@@ -21,21 +21,20 @@
       machine_type: "e2-standard-2"
 
 - name: run benchmark
-  hosts: localhost
+  hosts: substrate-benchmarks
   gather_facts: no
   tasks:
-  - name: Printout target
-    debug:
-      msg: "{{ target }}"
+  - debug: msg="Test"
+    delegate_to: localhost
 
 
-- name: provision
-  hosts: localhost
-  gather_facts: no
-  connection: local
-  tasks:
-  - name: Provision benchmark
-    include_role:
-      name: "{{ provider }}"
-    vars:
-      stage: DESTROY
+#- name: provision
+#  hosts: localhost
+#  gather_facts: no
+#  connection: local
+#  tasks:
+#  - name: Provision benchmark
+#    include_role:
+#      name: "{{ provider }}"
+#    vars:
+#      stage: DESTROY

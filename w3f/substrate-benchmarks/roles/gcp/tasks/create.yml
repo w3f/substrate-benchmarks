@@ -110,6 +110,11 @@
   debug:
     msg: "{{ instance }}"
 
-- name: Set target
-  set_fact:
-    target: "{{ instance.networkInterfaces[0].accessConfigs[0].natIP }}"
+- name: Add host
+  add_host:
+    hostname: "{{ instance.networkInterfaces[0].accessConfigs[0].natIP }}"
+    groups:
+    - substrate
+    - benchmarks
+    - substrate-benchmarks
+    - testing
