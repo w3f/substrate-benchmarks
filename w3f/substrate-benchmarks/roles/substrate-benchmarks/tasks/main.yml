@@ -52,7 +52,7 @@
 
 - name: write collected info to file
   template:
-    src: files/DEVICE_INFO.j2
+    src: templates/DEVICE_INFO.j2
     dest: '{{remote_work_dir}}/results/DEVICE_INFO.md'
 
 - name: run the benchmarks
