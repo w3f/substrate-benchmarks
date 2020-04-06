@@ -19,7 +19,7 @@
     vars:
       stage: CREATE
       remote_user: sa_106627723496398399336
-      machine_type: "e2-micro"
+      machine_type: "n1-standard-1"
 
 - name: Run Benchmark
   hosts: substrate-benchmarks
@@ -29,13 +29,21 @@
   - name: Add key to ssh-agent
     shell: ssh-add id_ed25519
     delegate_to: localhost
+  - name: Wait for instance to start.
+    local_action:
+      module: wait_for
+      host: substrate-benchmarks
+      port: 22
+      delay: 10
+      timeout: 300
+      state: started
   - ping:
   roles:
     - role: substrate-benchmarks
       vars:
         set_benchmarking_binary_url: 'https://github.com/lamafab/substrate-graph-benchmarks/releases/download/v0.1.0/substrate'
-        set_benchmark_steps: 2
-        set_benchmark_repeat: 2
+        set_benchmark_steps: 1
+        set_benchmark_repeat: 1
 
 - name: Clean
   hosts: localhost

@@ -1,6 +1,5 @@
 ---
 # vars file for substrate-benchmarks
-work_dir: '/home/{{ansible_user}}/substrate-benchmarks/{{ type }}/{{ ansible_date_time.iso8601 }}'
 benchmarking_binary_url: "{{ set_benchmarking_binary_url | default('https://github.com/lamafab/substrate-graph-benchmarks/releases/download/v0.1.0/substrate') }}"
 benchmark_steps: "{{ set_benchmark_steps | default(10) }}"
 benchmark_repeat: "{{ set_benchmark_repeat | default(10) }}"
