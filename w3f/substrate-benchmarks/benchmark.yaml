@@ -1,5 +1,5 @@
 ---
-- name: configure
+- name: Configure
   hosts: localhost
   gather_facts: no
   connection: local
@@ -8,7 +8,7 @@
     set_fact:
       provider: gcp
 
-- name: provision
+- name: Provision
   hosts: localhost
   gather_facts: no
   connection: local
@@ -20,20 +20,21 @@
       stage: CREATE
       machine_type: "e2-standard-2"
 
-- name: run benchmark
+- name: Run Benchmark
   hosts: substrate-benchmarks
   gather_facts: no
   tasks:
   - debug: msg="Test"
     delegate_to: localhost
+  - ping:
 
 
-#- name: provision
+#- name: Clean
 #  hosts: localhost
 #  gather_facts: no
 #  connection: local
 #  tasks:
-#  - name: Provision benchmark
+#  - name: destroy instance
 #    include_role:
 #      name: "{{ provider }}"
 #    vars:

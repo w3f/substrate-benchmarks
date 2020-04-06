@@ -29,7 +29,10 @@
     - ip_protocol: tcp
       ports: ['22']
     target_tags:
-      - gcp-benchmark
+    - substrate
+    - benchmarks
+    - substrate-benchmarks
+    - testing
     source_ranges: ['0.0.0.0/0']
     project: "{{ gcp_project }}"
     auth_kind: "{{ gcp_cred_kind }}"
@@ -64,8 +67,9 @@
 
 - name: Generate an OpenSSH keypair
   openssh_keypair:
-    type: ed25519
-    path: ./id_ed25519
+    type: ecdsa
+    size: 521
+    path: ./id_ecdsa
     comment: "{{ ansible_user }}"
   register: ssh_key
 
@@ -79,7 +83,7 @@
     machine_type: "{{ machine_type }}"
     metadata:
       enable-oslogin: true
-      ssh-keys: "{{ ssh_key.public_key }}"
+      ssh-keys: "{{ ssh_key.public_key }} {{ ssh_key.comment }}"
     labels:
       benchmark: true
       environment: testing
