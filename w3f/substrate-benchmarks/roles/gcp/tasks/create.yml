@@ -67,8 +67,8 @@
 
 - name: Generate an OpenSSH keypair
   openssh_keypair:
-    type: rsa
-    path: ./id_rsa
+    type: ed25519
+    path: ./id_ed25519
     comment: "{{ remote_user }}"
   register: ssh_key
 
