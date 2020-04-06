@@ -67,10 +67,9 @@
 
 - name: Generate an OpenSSH keypair
   openssh_keypair:
-    type: ecdsa
-    size: 521
-    path: ./id_ecdsa
-    comment: "{{ ansible_user }}"
+    type: rsa
+    path: ./id_rsa
+    comment: "{{ remote_user }}"
   register: ssh_key
 
 - debug:
@@ -83,7 +82,7 @@
     machine_type: "{{ machine_type }}"
     metadata:
       enable-oslogin: true
-      ssh-keys: "{{ ssh_key.public_key }} {{ ssh_key.comment }}"
+      ssh-keys: "{{ ssh_key.comment }}:{{ ssh_key.public_key }}"
     labels:
       benchmark: true
       environment: testing

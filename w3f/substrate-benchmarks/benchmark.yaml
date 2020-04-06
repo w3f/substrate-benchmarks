@@ -18,16 +18,17 @@
       name: "{{ provider }}"
     vars:
       stage: CREATE
+      remote_user: sa_106627723496398399336
       machine_type: "e2-standard-2"
 
 - name: Run Benchmark
   hosts: substrate-benchmarks
   gather_facts: no
+  remote_user: sa_106627723496398399336
   tasks:
   - debug: msg="Test"
     delegate_to: localhost
   - ping:
-
 
 #- name: Clean
 #  hosts: localhost

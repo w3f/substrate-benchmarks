@@ -6,6 +6,41 @@ A brief description of the role goes here.
 Requirements
 ------------
 
+gcloud iam service-accounts create ansible-sa \
+     --display-name "Service account for Ansible"
+
+gcloud compute project-info add-metadata \
+   --metadata enable-oslogin=TRUE
+
+ for role in \
+     'roles/compute.instanceAdmin' \
+     'roles/compute.instanceAdmin.v1' \
+     'roles/compute.osAdminLogin' \
+     'roles/iam.serviceAccountUser'
+ do \
+     gcloud projects add-iam-policy-binding \
+         my-gcp-project-241123 \
+         --member='serviceAccount:ansible-sa@my-gcp-project-241123.iam.gserviceaccount.com' \
+         --role="${role}"
+ done
+
+ gcloud iam service-accounts keys create \
+     .gcp/gcp-key-ansible-sa.json \
+     --iam-account=ansible-sa@my-gcp-project.iam.gserviceaccount.com
+
+ssh-keygen -f ssh-key-ansible-sa
+
+gcloud auth activate-service-account \
+    --key-file=.gcp/gcp-key-ansible-sa.json
+
+gcloud compute os-login ssh-keys add \
+    --key-file=ssh-key-ansible-sa.pub
+
+    gcloud iam service-accounts describe \
+        ansible-sa@my-gcp-project.iam.gserviceaccount.com \
+        --format='value(uniqueId)'
+    112132868898095905719
+
 Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
 Role Variables
