@@ -94,7 +94,7 @@ workflows:
             tags:
               only: /v[0-9]+(\.[0-9]+)*/
           requires:
-            - benchmark-2
+            - requirements
       - benchmark-4:
           filters:
             branches:
