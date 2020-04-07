@@ -69,7 +69,7 @@
   openssh_keypair:
     type: ed25519
     path: ./id_ed25519
-    comment: "{{ remote_user }}"
+    comment: "{{ ansible_user }}"
   register: ssh_key
 
 - debug:
