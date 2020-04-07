@@ -6,7 +6,7 @@
 namespace: w3f
 
 # The name of the collection. Has the same character restrictions as 'namespace'
-name: substrate-benchmarks 
+name: substrate-benchmarks
 
 # The version of the collection. Must be compatible with semantic versioning
 version: 0.0.1
@@ -18,7 +18,6 @@ readme: README.md
 # @nicks:irc/im.site#channel'
 authors:
 - Pantelis Ampatzoglou <pampatzoglou@gmail.com>
-
 
 ### OPTIONAL but strongly recommended
 

@@ -1,0 +1,61 @@
+version: 2
+
+jobs:
+  requirements:
+    docker:
+      - image: web3f/ansible:v0.0.2
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          command: |
+            pip install -r w3f/substrate-benchmarks/requirements.txt
+  benchmarks:
+    docker:
+      - image: web3f/ansible:v0.0.2
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          command: |
+            ansible-playbook --extra-vars "machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml
+      - store_artifacts:
+          path: w3f/substrate-benchmarks/results
+          destination: results-artifact-e2-micro
+      - run:
+          command: |
+            ansible-playbook --extra-vars "machine_type=e2-small" w3f/substrate-benchmarks/benchmarks.yaml
+      - store_artifacts:
+          path: w3f/substrate-benchmarks/results
+          destination: results-artifact-e2-small
+      - run:
+          command: |
+            ansible-playbook --extra-vars "machine_type=e2-medium" w3f/substrate-benchmarks/benchmarks.yaml
+      - store_artifacts:
+          path: w3f/substrate-benchmarks/results
+          destination: results-artifact-e2-medium
+      - run:
+          command: |
+            ansible-playbook --extra-vars "machine_type=e2-standard-2" w3f/substrate-benchmarks/benchmarks.yaml
+      - store_artifacts:
+          path: w3f/substrate-benchmarks/results
+          destination: results-artifact-e2-standard-2
+
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - requirements:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+      - benchmarks:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+          requires:
+            - requirements
