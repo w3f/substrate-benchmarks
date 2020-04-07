@@ -1,0 +1,8 @@
+---
+
+- name: Create
+  import_tasks: create.yml
+  when: stage == "CREATE"
+- name: Destroy
+  import_tasks: destroy.yml
+  when: stage == "DESTROY"

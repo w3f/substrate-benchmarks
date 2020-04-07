@@ -1,0 +1,122 @@
+---
+- name: Create VPC
+  gcp_compute_network:
+    name: gcp-benchmark-network
+    auto_create_subnetworks: yes
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: present
+  register: network
+
+- name: Create subnet
+  gcp_compute_subnetwork:
+    name: gcp-benchmark-subnet
+    region: "{{ region }}"
+    network: "{{ network }}"
+    ip_cidr_range: "{{ ip_cidr_range }}"
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: present
+  register: subnet
+
+- name: Open port
+  gcp_compute_firewall:
+    name: benchmark-firewall-ssh
+    network: "{{ network }}"
+    allowed:
+    - ip_protocol: tcp
+      ports: ['22']
+    target_tags:
+    - substrate
+    - benchmarks
+    - substrate-benchmarks
+    - testing
+    source_ranges: ['0.0.0.0/0']
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: present
+  register: firewall
+
+- name: Assighn IP
+  gcp_compute_address:
+    name: "{{ instance_name }}"
+    region: "{{ region }}"
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: present
+  register: address
+
+- name: Create disk
+  gcp_compute_disk:
+    name: "{{ instance_name }}"
+    size_gb: "{{ disk_size_gb }}"
+    source_image: "{{ image }}"
+    labels:
+      benchmark: true
+      environment: testing
+    zone: "{{ zone }}"
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: present
+  register: disk
+
+- name: Generate an OpenSSH keypair
+  openssh_keypair:
+    type: ed25519
+    path: ./id_ed25519
+    comment: "{{ ansible_user }}"
+  register: ssh_key
+
+- debug:
+    var: ssh_key
+
+- name: Create instance
+  gcp_compute_instance:
+    state: present
+    name: "{{ instance_name }}"
+    machine_type: "{{ machine_type }}"
+    metadata:
+      ssh-keys: "{{ ssh_key.comment }}:{{ ssh_key.public_key }} {{ ssh_key.comment }}"
+    labels:
+      benchmark: true
+      environment: testing
+    disks:
+    - auto_delete: true
+      boot: true
+      source: "{{ disk }}"
+    network_interfaces:
+    - network: "{{ network }}"
+      subnetwork: "{{ subnet }}"
+      access_configs:
+      - name: External NAT
+        nat_ip: "{{ address }}"
+        type: ONE_TO_ONE_NAT
+    zone: "{{ zone }}"
+    tags:
+      items:
+        - substrate
+        - benchmarks
+        - substrate-benchmarks
+        - testing
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+  register: instance
+
+- name: Printout instance
+  debug:
+    msg: "{{ instance }}"
+
+- name: Add host
+  add_host:
+    hostname: "{{ instance.networkInterfaces[0].accessConfigs[0].natIP }}"
+    groups:
+    - substrate
+    - benchmarks
+    - substrate-benchmarks
+    - testing
