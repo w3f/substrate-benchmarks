@@ -6,7 +6,6 @@ jobs:
       - image: web3f/ansible:v0.0.2
     steps:
       - checkout
-      - setup_remote_docker
       - run:
           command: |
             pip install -r w3f/substrate-benchmarks/requirements.txt
