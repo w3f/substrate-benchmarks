@@ -1,4 +1,9 @@
 ---
+- name: Provision GCP credentials
+  copy:
+    content: '{{ gcp_credentials }}'
+    dest: '{{ gcp_cred_file }}'
+
 - name: Create VPC
   gcp_compute_network:
     name: gcp-benchmark-network
