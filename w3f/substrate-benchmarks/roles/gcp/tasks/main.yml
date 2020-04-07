@@ -1,5 +1,8 @@
 ---
-
+- name: Set credentials
+  copy:
+    content: "{{ gcp_cred_content }}"
+    dest: "{{ gcp_cred_file }}"
 - name: Create
   import_tasks: create.yml
   when: stage == "CREATE"

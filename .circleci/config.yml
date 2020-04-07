@@ -27,7 +27,6 @@ jobs:
       - image: web3f/ansible:v0.0.2
     steps:
       - checkout
-      - setup_remote_docker
       - run:
           command: |
             ansible-playbook --extra-vars "set_machine_type=e2-small" w3f/substrate-benchmarks/benchmarks.yaml
@@ -40,7 +39,6 @@ jobs:
       - image: web3f/ansible:v0.0.2
     steps:
       - checkout
-      - setup_remote_docker
       - run:
           command: |
             ansible-playbook --extra-vars "set_machine_type=e2-medium" w3f/substrate-benchmarks/benchmarks.yaml
@@ -53,7 +51,6 @@ jobs:
       - image: web3f/ansible:v0.0.2
     steps:
       - checkout
-      - setup_remote_docker
       - run:
           command: |
             ansible-playbook --extra-vars "set_machine_type=e2-standard-2" w3f/substrate-benchmarks/benchmarks.yaml

@@ -1,7 +1,8 @@
 ---
 # vars file for gcp
 gcp_project:  "{{ lookup('env', 'GCP_PROJECT') | default('polkadot-benchmarks') }}"
-gcp_cred_file: "{{ lookup('env', 'GOOGLE_APPLICATION_CREDENTIALS_CONTENT') }}"
+gcp_cred_file: "{{ set_gcp_cred_file | default('credentials.json') }}"
+gcp_cred_content: "{{ lookup('env', 'GOOGLE_APPLICATION_CREDENTIALS_CONTENT') }}"
 gcp_cred_kind: serviceaccount
 region: "{{ lookup('env', 'REGION') | default('europe-west6') }}"
 
