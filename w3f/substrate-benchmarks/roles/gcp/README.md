@@ -1,11 +1,11 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+This role will create a compute instance on GCP.
 
 Requirements
 ------------
-google-auth, which can be installed by: ```pip install google-auth requests apache-libcloud``` or by ```pip install -r requirements.txt```.
+google-auth, which can be installed by: ```pip install google-auth requests apache-libcloud``` .
 
 
 Dependencies
