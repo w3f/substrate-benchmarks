@@ -10,7 +10,8 @@ jobs:
       - run:
           command: |
             pip install -r w3f/substrate-benchmarks/requirements.txt
-  benchmarks:
+
+  benchmark-1:
     docker:
       - image: web3f/ansible:v0.0.2
     steps:
@@ -22,18 +23,39 @@ jobs:
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-micro
+
+  benchmark-2:
+    docker:
+      - image: web3f/ansible:v0.0.2
+    steps:
+      - checkout
+      - setup_remote_docker
       - run:
           command: |
             ansible-playbook --extra-vars "machine_type=e2-small" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-small
+
+  benchmark-3:
+    docker:
+      - image: web3f/ansible:v0.0.2
+    steps:
+      - checkout
+      - setup_remote_docker
       - run:
           command: |
             ansible-playbook --extra-vars "machine_type=e2-medium" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-medium
+
+  benchmark-4:
+    docker:
+      - image: web3f/ansible:v0.0.2
+    steps:
+      - checkout
+      - setup_remote_docker
       - run:
           command: |
             ansible-playbook --extra-vars "machine_type=e2-standard-2" w3f/substrate-benchmarks/benchmarks.yaml
@@ -51,7 +73,7 @@ workflows:
               ignore: /.*/
             tags:
               only: /v[0-9]+(\.[0-9]+)*/
-      - benchmarks:
+      - benchmark-1:
           filters:
             branches:
               ignore: /.*/
@@ -59,3 +81,27 @@ workflows:
               only: /v[0-9]+(\.[0-9]+)*/
           requires:
             - requirements
+      - benchmark-2:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+          requires:
+            - benchmark-1
+      - benchmark-3:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+          requires:
+            - benchmark-2
+      - benchmark-4:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+          requires:
+            - benchmark-3
