@@ -1,10 +1,11 @@
 ---
 # vars file for gcp
-desired_state: "{{ state | default('absent') }}"
-gcp_project:  "{{ set_gcp_project | default('polkadot-benchmarks') }}"
-gcp_cred_kind: serviceaccount
+gcp_project:  "{{ lookup('env', 'GCP_PROJECT') | default('polkadot-benchmarks') }}"
 gcp_cred_file: "{{ lookup('env', 'GOOGLE_APPLICATION_CREDENTIALS_CONTENT') }}"
+gcp_cred_kind: serviceaccount
+region: "{{ lookup('env', 'REGION') | default('europe-west6') }}"
+
 machine_type: "{{ set_machine_type | default('n1-standard-1') }}"
-region: "{{ set_region | default('europe-west6') }}"
+
 zone: '{{ region }}-a'
 image: "{{ set_image | default('projects/ubuntu-os-cloud/global/images/family/ubuntu-1804-lts') }}"
