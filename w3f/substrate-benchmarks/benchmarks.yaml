@@ -18,24 +18,27 @@
       name: "{{ provider }}"
     vars:
       stage: CREATE
-      machine_type: "n1-standard-1"
+      machine_type: "{{ machine_type }}"
   - name: Add key to ssh-agent
     shell: ssh-add id_ed25519
   - git:
       repo: 'https://github.com/w3f/polkadot-module-benchmarking.git'
       dest: roles/substrate-benchmarks
 
-- name: Run Benchmark
-  hosts: all
-  gather_facts: yes
-
+- name: Wait for system ready
+  hosts: benchmark
+  gather_facts: no
   tasks:
-  - name: debug host
-    debug:
-      msg: "{{benchmark}}"
+  - name: Wait for system to become reachable
+    wait_for_connection:
+
+- name: Run Benchmark
+  hosts: benchmark
+  gather_facts: yes
+  tasks:
   - ping:
-  #roles:
-  #  - role: substrate-benchmarks
+  roles:
+    - role: substrate-benchmarks
 
 - name: Clean
   hosts: localhost
