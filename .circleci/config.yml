@@ -13,7 +13,7 @@ jobs:
           command: |
             pip install -r w3f/substrate-benchmarks/requirements.txt
 
-  benchmark-1:
+  benchmark-e2-micro:
     docker:
       - image: web3f/ansible:v0.0.3
     steps:
@@ -28,6 +28,65 @@ jobs:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-micro
 
+  benchmark-e2-small:
+    docker:
+      - image: web3f/ansible:v0.0.3
+    steps:
+      - checkout
+      - run:
+          command: |
+            pip install -r w3f/substrate-benchmarks/requirements.txt
+      - run:
+          command: |
+            ansible-playbook --extra-vars "machine_type=e2-small" w3f/substrate-benchmarks/benchmarks.yaml -vvvv
+      - store_artifacts:
+          path: w3f/substrate-benchmarks/results
+          destination: results-artifact-e2-small
+
+  benchmark-e2-medium:
+    docker:
+      - image: web3f/ansible:v0.0.3
+    steps:
+      - checkout
+      - run:
+          command: |
+            pip install -r w3f/substrate-benchmarks/requirements.txt
+      - run:
+          command: |
+            ansible-playbook --extra-vars "machine_type=e2-medium" w3f/substrate-benchmarks/benchmarks.yaml -vvvv
+      - store_artifacts:
+          path: w3f/substrate-benchmarks/results
+          destination: results-artifact-e2-medium
+
+  benchmark-n1-standard-1:
+    docker:
+      - image: web3f/ansible:v0.0.3
+    steps:
+      - checkout
+      - run:
+          command: |
+            pip install -r w3f/substrate-benchmarks/requirements.txt
+      - run:
+          command: |
+            ansible-playbook --extra-vars "machine_type=n1-standard-1" w3f/substrate-benchmarks/benchmarks.yaml -vvvv
+      - store_artifacts:
+          path: w3f/substrate-benchmarks/results
+          destination: results-artifact-n1-standard-1
+
+  benchmark-n1-standard-2:
+    docker:
+      - image: web3f/ansible:v0.0.3
+    steps:
+      - checkout
+      - run:
+          command: |
+            pip install -r w3f/substrate-benchmarks/requirements.txt
+      - run:
+          command: |
+            ansible-playbook --extra-vars "machine_type=n1-standard-2" w3f/substrate-benchmarks/benchmarks.yaml -vvvv
+      - store_artifacts:
+          path: w3f/substrate-benchmarks/results
+          destination: results-artifact-n1-standard-2
 
 workflows:
   version: 2
@@ -39,7 +98,39 @@ workflows:
               ignore: /.*/
             tags:
               only: /v[0-9]+(\.[0-9]+)*/
-      - benchmark-1:
+      - benchmark-e2-micro:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+          requires:
+            - requirements
+      - benchmark-e2-small:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+          requires:
+            - requirements
+      - benchmark-e2-medium:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+          requires:
+            - requirements
+      - benchmark-n1-standard-1:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+          requires:
+            - requirements
+      - benchmark-n1-standard-2:
           filters:
             branches:
               ignore: /.*/
