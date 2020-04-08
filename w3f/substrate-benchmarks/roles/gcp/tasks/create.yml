@@ -6,7 +6,7 @@
 
 - name: Create VPC
   gcp_compute_network:
-    name: "gcp-benchmark-network-{ instance_name }}"
+    name: "benchmark-network"
     auto_create_subnetworks: yes
     project: "{{ gcp_project }}"
     auth_kind: "{{ gcp_cred_kind }}"
@@ -16,7 +16,7 @@
 
 - name: Create subnet
   gcp_compute_subnetwork:
-    name: "gcp-benchmark-subnet-{ instance_name }}"
+    name: "benchmark-subnet"
     region: "{{ region }}"
     network: "{{ network }}"
     ip_cidr_range: "{{ ip_cidr_range }}"
@@ -28,7 +28,7 @@
 
 - name: Open port
   gcp_compute_firewall:
-    name: "benchmark-firewall-ssh-{{ instance_name }}"
+    name: "benchmark-firewall-ssh"
     network: "{{ network }}"
     allowed:
     - ip_protocol: tcp

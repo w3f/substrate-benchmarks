@@ -35,10 +35,12 @@
 - name: Run Benchmark
   hosts: benchmark
   gather_facts: yes
+  ignore_errors: yes
   tasks:
   - ping:
   roles:
     - role: substrate-benchmarks
+
 
 - name: Clean
   hosts: localhost
