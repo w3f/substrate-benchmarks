@@ -1,4 +1,9 @@
 ---
+- name: Provision GCP credentials
+  copy:
+    content: '{{ gcp_credentials }}'
+    dest: '{{ gcp_cred_file }}'
+
 - name: Create VPC
   gcp_compute_network:
     name: gcp-benchmark-network
@@ -99,9 +104,7 @@
     zone: "{{ zone }}"
     tags:
       items:
-        - substrate
-        - benchmarks
-        - substrate-benchmarks
+        - benchmark
         - testing
     project: "{{ gcp_project }}"
     auth_kind: "{{ gcp_cred_kind }}"
@@ -115,8 +118,13 @@
 - name: Add host
   add_host:
     hostname: "{{ instance.networkInterfaces[0].accessConfigs[0].natIP }}"
+    host_vars:
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no -o ConnectTimeout=25 -o ControlMaster=no -o UserKnownHostsFile=/dev/null'
     groups:
-    - substrate
-    - benchmarks
-    - substrate-benchmarks
+    - benchmark
     - testing
+  register: host
+
+- name: Printout instance
+  debug:
+    msg: "{{ host }}"
