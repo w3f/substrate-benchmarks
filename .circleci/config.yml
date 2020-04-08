@@ -3,7 +3,7 @@ version: 2
 jobs:
   requirements:
     docker:
-      - image: web3f/ansible:v0.0.2
+      - image: web3f/ansible:v0.0.3
     steps:
       - checkout
       - run:
