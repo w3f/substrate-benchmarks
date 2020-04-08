@@ -17,7 +17,7 @@ jobs:
       - checkout
       - run:
           command: |
-            ansible-playbook --extra-vars "set_machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml
+            ansible-playbook --extra-vars "machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-micro
@@ -29,7 +29,7 @@ jobs:
       - checkout
       - run:
           command: |
-            ansible-playbook --extra-vars "set_machine_type=e2-small" w3f/substrate-benchmarks/benchmarks.yaml
+            ansible-playbook --extra-vars "machine_type=e2-small" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-small
@@ -41,7 +41,7 @@ jobs:
       - checkout
       - run:
           command: |
-            ansible-playbook --extra-vars "set_machine_type=e2-medium" w3f/substrate-benchmarks/benchmarks.yaml
+            ansible-playbook --extra-vars "machine_type=e2-medium" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-medium
@@ -53,7 +53,7 @@ jobs:
       - checkout
       - run:
           command: |
-            ansible-playbook --extra-vars "set_machine_type=e2-standard-2" w3f/substrate-benchmarks/benchmarks.yaml
+            ansible-playbook --extra-vars "machine_type=e2-standard-2" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-standard-2
