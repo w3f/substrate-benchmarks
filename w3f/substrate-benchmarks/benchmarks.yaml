@@ -26,12 +26,16 @@
       dest: roles/substrate-benchmarks
 
 - name: Run Benchmark
-  hosts: substrate-benchmarks
+  hosts: all
   gather_facts: yes
+
   tasks:
+  - name: debug host
+    debug:
+      msg: "{{benchmark}}"
   - ping:
-  roles:
-    - role: substrate-benchmarks
+  #roles:
+  #  - role: substrate-benchmarks
 
 - name: Clean
   hosts: localhost
