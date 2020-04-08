@@ -22,8 +22,8 @@ jobs:
           command: |
             pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
-          command: |
-            ansible-playbook --extra-vars "machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml
+          command: ansible-playbook --extra-vars "machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml
+            no_output_timeout: 90m
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-micro
@@ -37,8 +37,8 @@ jobs:
           command: |
             pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
-          command: |
-            ansible-playbook --extra-vars "machine_type=e2-small" w3f/substrate-benchmarks/benchmarks.yaml
+          command: ansible-playbook --extra-vars "machine_type=e2-small" w3f/substrate-benchmarks/benchmarks.yaml
+            no_output_timeout: 90m
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-small
@@ -52,8 +52,8 @@ jobs:
           command: |
             pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
-          command: |
-            ansible-playbook --extra-vars "machine_type=e2-medium" w3f/substrate-benchmarks/benchmarks.yaml
+          command: ansible-playbook --extra-vars "machine_type=e2-medium" w3f/substrate-benchmarks/benchmarks.yaml
+            no_output_timeout: 90m
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-medium
@@ -67,8 +67,8 @@ jobs:
           command: |
             pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
-          command: |
-            ansible-playbook --extra-vars "machine_type=n1-standard-1" w3f/substrate-benchmarks/benchmarks.yaml
+          command: ansible-playbook --extra-vars "machine_type=n1-standard-1" w3f/substrate-benchmarks/benchmarks.yaml
+            no_output_timeout: 90m
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-n1-standard-1
@@ -82,8 +82,8 @@ jobs:
           command: |
             pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
-          command: |
-            ansible-playbook --extra-vars "machine_type=n1-standard-2" w3f/substrate-benchmarks/benchmarks.yaml
+          command: ansible-playbook --extra-vars "machine_type=n1-standard-2" w3f/substrate-benchmarks/benchmarks.yaml
+            no_output_timeout: 90m
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-n1-standard-2
@@ -99,38 +99,6 @@ workflows:
             tags:
               only: /v[0-9]+(\.[0-9]+)*/
       - benchmark-e2-micro:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /v[0-9]+(\.[0-9]+)*/
-          requires:
-            - requirements
-      - benchmark-e2-small:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /v[0-9]+(\.[0-9]+)*/
-          requires:
-            - requirements
-      - benchmark-e2-medium:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /v[0-9]+(\.[0-9]+)*/
-          requires:
-            - requirements
-      - benchmark-n1-standard-1:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /v[0-9]+(\.[0-9]+)*/
-          requires:
-            - requirements
-      - benchmark-n1-standard-2:
           filters:
             branches:
               ignore: /.*/
