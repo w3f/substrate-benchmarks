@@ -37,8 +37,8 @@
   gather_facts: yes
   tasks:
   - ping:
-  roles:
-    - role: substrate-benchmarks
+  - include_role:
+      name: substrate-benchmarks
 
 - name: Clean
   hosts: localhost
