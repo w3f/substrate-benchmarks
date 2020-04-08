@@ -12,7 +12,7 @@ jobs:
 
   benchmark-1:
     docker:
-      - image: web3f/ansible:v0.0.2
+      - image: web3f/ansible:v0.0.3
     steps:
       - checkout
       - run:
@@ -24,7 +24,7 @@ jobs:
 
   benchmark-2:
     docker:
-      - image: web3f/ansible:v0.0.2
+      - image: web3f/ansible:v0.0.3
     steps:
       - checkout
       - run:
@@ -36,7 +36,7 @@ jobs:
 
   benchmark-3:
     docker:
-      - image: web3f/ansible:v0.0.2
+      - image: web3f/ansible:v0.0.3
     steps:
       - checkout
       - run:
@@ -48,7 +48,7 @@ jobs:
 
   benchmark-4:
     docker:
-      - image: web3f/ansible:v0.0.2
+      - image: web3f/ansible:v0.0.3
     steps:
       - checkout
       - run:
