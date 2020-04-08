@@ -111,10 +111,6 @@
     service_account_file: "{{ gcp_cred_file }}"
   register: instance
 
-- name: Printout instance
-  debug:
-    msg: "{{ instance }}"
-
 - name: Add host
   add_host:
     hostname: "{{ instance.networkInterfaces[0].accessConfigs[0].natIP }}"
@@ -124,7 +120,3 @@
     - benchmark
     - testing
   register: host
-
-- name: Printout instance
-  debug:
-    msg: "{{ host }}"
