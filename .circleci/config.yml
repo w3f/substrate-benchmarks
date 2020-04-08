@@ -23,7 +23,7 @@ jobs:
             pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           command: |
-            ansible-playbook --extra-vars "machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml
+            ansible-playbook --extra-vars "machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml -vvvv
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-micro
