@@ -23,7 +23,7 @@ jobs:
             pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           command: |
-            ansible-playbook --extra-vars "machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml -vvvv
+            ansible-playbook --extra-vars "machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-micro
@@ -38,7 +38,7 @@ jobs:
             pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           command: |
-            ansible-playbook --extra-vars "machine_type=e2-small" w3f/substrate-benchmarks/benchmarks.yaml -vvvv
+            ansible-playbook --extra-vars "machine_type=e2-small" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-small
@@ -53,7 +53,7 @@ jobs:
             pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           command: |
-            ansible-playbook --extra-vars "machine_type=e2-medium" w3f/substrate-benchmarks/benchmarks.yaml -vvvv
+            ansible-playbook --extra-vars "machine_type=e2-medium" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-medium
@@ -68,7 +68,7 @@ jobs:
             pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           command: |
-            ansible-playbook --extra-vars "machine_type=n1-standard-1" w3f/substrate-benchmarks/benchmarks.yaml -vvvv
+            ansible-playbook --extra-vars "machine_type=n1-standard-1" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-n1-standard-1
@@ -83,7 +83,7 @@ jobs:
             pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           command: |
-            ansible-playbook --extra-vars "machine_type=n1-standard-2" w3f/substrate-benchmarks/benchmarks.yaml -vvvv
+            ansible-playbook --extra-vars "machine_type=n1-standard-2" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
           path: w3f/substrate-benchmarks/results
           destination: results-artifact-n1-standard-2
