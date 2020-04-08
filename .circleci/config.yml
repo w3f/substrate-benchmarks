@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           command: |
-            pip install -r project/w3f/substrate-benchmarks/requirements.txt
+            pip install -r w3f/substrate-benchmarks/requirements.txt
 
   benchmark-1:
     docker:
@@ -17,12 +17,12 @@ jobs:
       - checkout
       - run:
           command: |
-            pip install -r project/w3f/substrate-benchmarks/requirements.txt
+            pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           command: |
-            ansible-playbook --extra-vars "machine_type=e2-micro" project/w3f/substrate-benchmarks/benchmarks.yaml
+            ansible-playbook --extra-vars "machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
-          path: project/w3f/substrate-benchmarks/results
+          path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-micro
 
   benchmark-2:
@@ -32,12 +32,12 @@ jobs:
       - checkout
       - run:
           command: |
-            pip install -r project/w3f/substrate-benchmarks/requirements.txt
+            pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           command: |
-            ansible-playbook --extra-vars "machine_type=e2-micro" project/w3f/substrate-benchmarks/benchmarks.yaml
+            ansible-playbook --extra-vars "machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
-          path: project/w3f/substrate-benchmarks/results
+          path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-small
 
   benchmark-3:
@@ -47,12 +47,12 @@ jobs:
       - checkout
       - run:
           command: |
-            pip install -r project/w3f/substrate-benchmarks/requirements.txt
+            pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           command: |
-            ansible-playbook --extra-vars "machine_type=e2-micro" project/w3f/substrate-benchmarks/benchmarks.yaml
+            ansible-playbook --extra-vars "machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
-          path: project/w3f/substrate-benchmarks/results
+          path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-medium
 
   benchmark-4:
@@ -62,12 +62,12 @@ jobs:
       - checkout
       - run:
           command: |
-            pip install -r project/w3f/substrate-benchmarks/requirements.txt
+            pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           command: |
-            ansible-playbook --extra-vars "machine_type=e2-micro" project/w3f/substrate-benchmarks/benchmarks.yaml
+            ansible-playbook --extra-vars "machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
-          path: project/w3f/substrate-benchmarks/results
+          path: w3f/substrate-benchmarks/results
           destination: results-artifact-e2-standard-2
 
 workflows:
