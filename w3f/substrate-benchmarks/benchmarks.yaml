@@ -12,6 +12,7 @@
   hosts: localhost
   gather_facts: no
   connection: local
+  ignore_errors: yes
   tasks:
   - name: Provision benchmark
     include_role:
