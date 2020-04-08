@@ -65,9 +65,6 @@
     comment: "{{ ansible_user }}"
   register: ssh_key
 
-- debug:
-    var: ssh_key
-
 - name: Create instance
   gcp_compute_instance:
     state: present

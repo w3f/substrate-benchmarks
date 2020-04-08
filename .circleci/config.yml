@@ -4,6 +4,9 @@ jobs:
   requirements:
     docker:
       - image: web3f/ansible:v0.0.3
+
+    environment:
+      ANSIBLE_HOST_KEY_CHECKING: False
     steps:
       - checkout
       - run:
