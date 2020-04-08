@@ -17,6 +17,9 @@ jobs:
       - checkout
       - run:
           command: |
+            pip install -r w3f/substrate-benchmarks/requirements.txt
+      - run:
+          command: |
             ansible-playbook --extra-vars "machine_type=e2-micro" project/w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
           path: project/w3f/substrate-benchmarks/results
@@ -27,6 +30,9 @@ jobs:
       - image: web3f/ansible:v0.0.3
     steps:
       - checkout
+      - run:
+          command: |
+            pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           command: |
             ansible-playbook --extra-vars "machine_type=e2-micro" project/w3f/substrate-benchmarks/benchmarks.yaml
@@ -41,6 +47,9 @@ jobs:
       - checkout
       - run:
           command: |
+            pip install -r w3f/substrate-benchmarks/requirements.txt
+      - run:
+          command: |
             ansible-playbook --extra-vars "machine_type=e2-micro" project/w3f/substrate-benchmarks/benchmarks.yaml
       - store_artifacts:
           path: project/w3f/substrate-benchmarks/results
@@ -51,6 +60,9 @@ jobs:
       - image: web3f/ansible:v0.0.3
     steps:
       - checkout
+      - run:
+          command: |
+            pip install -r w3f/substrate-benchmarks/requirements.txt      
       - run:
           command: |
             ansible-playbook --extra-vars "machine_type=e2-micro" project/w3f/substrate-benchmarks/benchmarks.yaml
