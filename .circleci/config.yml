@@ -25,7 +25,7 @@ jobs:
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
       - store_artifacts:
-          path: w3f/substrate-benchmarks/results
+          path: w3f/substrate-benchmarks
           destination: results-artifact-e2-micro
 
   benchmark-e2-small:
@@ -40,11 +40,11 @@ jobs:
       - run:
           name: benchmark e2-small
           command: ansible-playbook --extra-vars "machine_type=e2-small" w3f/substrate-benchmarks/benchmarks.yaml
-          no_output_timeout: 90m
+          no_output_timeout: 180m
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
       - store_artifacts:
-          path: w3f/substrate-benchmarks/results
+          path: w3f/substrate-benchmarks
           destination: results-artifact-e2-small
 
   benchmark-e2-medium:
@@ -58,11 +58,11 @@ jobs:
       - run:
           name: benchmark e2-medium
           command: ansible-playbook --extra-vars "machine_type=e2-medium" w3f/substrate-benchmarks/benchmarks.yaml
-          no_output_timeout: 90m
+          no_output_timeout: 180m
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
       - store_artifacts:
-          path: w3f/substrate-benchmarks/results
+          path: w3f/substrate-benchmarks
           destination: results-artifact-e2-medium
 
   benchmark-n1-standard-1:
@@ -76,11 +76,11 @@ jobs:
       - run:
           name: benchmark n1-standard-1
           command: ansible-playbook --extra-vars "machine_type=n1-standard-1" w3f/substrate-benchmarks/benchmarks.yaml
-          no_output_timeout: 90m
+          no_output_timeout: 180m
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
       - store_artifacts:
-          path: w3f/substrate-benchmarks/results
+          path: w3f/substrate-benchmarks
           destination: results-artifact-n1-standard-1
 
   benchmark-n1-standard-2:
@@ -94,11 +94,11 @@ jobs:
       - run:
           name: benchmark n1-standard-2
           command: ansible-playbook --extra-vars "machine_type=n1-standard-2" w3f/substrate-benchmarks/benchmarks.yaml
-          no_output_timeout: 90m
+          no_output_timeout: 180m
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
       - store_artifacts:
-          path: w3f/substrate-benchmarks/results
+          path: w3f/substrate-benchmarks
           destination: results-artifact-n1-standard-2
 
 workflows:
@@ -111,7 +111,7 @@ workflows:
               ignore: /.*/
             tags:
               only: /v[0-9]+(\.[0-9]+)*/
-      - benchmark-e2-micro:
+      - benchmark-n1-standard-2:
           filters:
             branches:
               ignore: /.*/
