@@ -14,7 +14,7 @@ jobs:
   benchmark-e2-micro:
     docker:
       - image: web3f/ansible:v0.0.4
-      
+
     steps:
       - checkout
       - run:
@@ -23,7 +23,7 @@ jobs:
       - run:
           name: benchmark e2-micro
           command: ansible-playbook --extra-vars "machine_type=e2-micro" w3f/substrate-benchmarks/benchmarks.yaml
-          no_output_timeout: 90m
+          no_output_timeout: 180m
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
       - store_artifacts:
@@ -42,7 +42,7 @@ jobs:
       - run:
           name: benchmark e2-small
           command: ansible-playbook --extra-vars "machine_type=e2-small" w3f/substrate-benchmarks/benchmarks.yaml
-          no_output_timeout: 90m
+          no_output_timeout: 180m
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
       - store_artifacts:
@@ -60,7 +60,7 @@ jobs:
       - run:
           name: benchmark e2-medium
           command: ansible-playbook --extra-vars "machine_type=e2-medium" w3f/substrate-benchmarks/benchmarks.yaml
-          no_output_timeout: 90m
+          no_output_timeout: 180m
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
       - store_artifacts:
@@ -78,7 +78,7 @@ jobs:
       - run:
           name: benchmark n1-standard-1
           command: ansible-playbook --extra-vars "machine_type=n1-standard-1" w3f/substrate-benchmarks/benchmarks.yaml
-          no_output_timeout: 90m
+          no_output_timeout: 180m
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
       - store_artifacts:
@@ -96,7 +96,7 @@ jobs:
       - run:
           name: benchmark n1-standard-2
           command: ansible-playbook --extra-vars "machine_type=n1-standard-2" w3f/substrate-benchmarks/benchmarks.yaml
-          no_output_timeout: 90m
+          no_output_timeout: 180m
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
       - store_artifacts:
