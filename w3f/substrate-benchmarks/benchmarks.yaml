@@ -23,7 +23,7 @@
     shell: ssh-add id_ed25519
   - git:
       repo: 'https://github.com/w3f/polkadot-module-benchmarking.git'
-      dest: roles/substrate-benchmarks
+      dest: roles/substrate_benchmarks
 
 - name: Wait for system ready
   hosts: benchmark

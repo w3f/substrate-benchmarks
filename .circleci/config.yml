@@ -4,12 +4,21 @@ jobs:
   requirements:
     docker:
       - image: web3f/ansible:v0.0.4
-
     steps:
       - checkout
       - run:
           command: |
             pip install -r w3f/substrate-benchmarks/requirements.txt
+
+  publish:
+    docker:
+      - image: web3f/ansible:v0.0.4
+    steps:
+      - checkout
+      - run:
+          command: |
+            .scripts/publish.sh
+
 
   benchmark-e2-micro:
     docker:

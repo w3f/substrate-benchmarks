@@ -16,7 +16,7 @@
 
 - name: Open port
   gcp_compute_firewall:
-    name: "benchmark-firewall-ssh-{{instance_name}}"
+    name: "benchmark-firewall-ssh-{{ instance_name }}"
     network: "{{ network }}"
     allowed:
     - ip_protocol: tcp
@@ -35,7 +35,7 @@
 
 - name: Set Rule
   set_fact:
-    compute_firewall: "{{firewall}}"
+    compute_firewall: "{{ firewall }}"
 
 - name: Claim IP
   gcp_compute_address:
@@ -49,7 +49,7 @@
 
 - name: Set Address
   set_fact:
-    compute_address: "{{address}}"
+    compute_address: "{{ address }}"
 
 - name: Create disk
   gcp_compute_disk:
@@ -105,7 +105,7 @@
 
 - name: Set Instance
   set_fact:
-    compute_instance: "{{instance}}"
+    compute_instance: "{{ instance }}"
 
 - name: Add host
   add_host:
