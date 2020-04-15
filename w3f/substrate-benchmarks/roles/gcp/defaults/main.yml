@@ -1,5 +1,5 @@
 ---
 # defaults file for create-gcp
-instance_name: "benchmark-{{ machine_type }}-{{ 99999999 | random | to_uuid }}"
+instance_name: "benchmark-{{ machine_type }}-{{ 99999999 | random }}"
 disk_size_gb: 15
 ip_cidr_range: 172.16.0.0/28
