@@ -39,6 +39,8 @@
   - ping:
   - include_role:
       name: substrate-benchmarks
+    vars:
+      scope: "{{ scope }}"
 
 - name: Clean
   hosts: localhost
