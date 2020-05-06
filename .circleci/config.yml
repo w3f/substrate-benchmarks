@@ -3,17 +3,17 @@ version: 2
 jobs:
   requirements:
     docker:
-      - image: web3f/ansible:v0.0.4
+      - image: web3f/ansible:v0.0.5
 
     steps:
       - checkout
       - run:
           command: |
-            pip install -r w3f/substrate-benchmarks/requirements.txt
+            pip3 install -r w3f/benchmarks/requirements.txt
 
   benchmark-e2-micro:
     docker:
-      - image: web3f/ansible:v0.0.4
+      - image: web3f/ansible:v0.0.5
 
     steps:
       - checkout
@@ -22,7 +22,7 @@ jobs:
             pip install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           name: benchmark e2-micro
-          command: ansible-playbook --extra-vars "machine_type=e2-micro scope=limited" w3f/substrate-benchmarks/benchmarks.yaml
+          command: ansible-playbook --extra-vars "machine_type=e2-micro scope=limited" w3f/benchmarks/benchmarks.yaml
           no_output_timeout: 120h
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
@@ -32,16 +32,16 @@ jobs:
 
   benchmark-e2-small:
     docker:
-      - image: web3f/ansible:v0.0.4
+      - image: web3f/ansible:v0.0.5
     steps:
       - checkout
       - run:
           name: install requirements
           command: |
-            pip install -r w3f/substrate-benchmarks/requirements.txt
+            pip3 install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           name: benchmark e2-small
-          command: ansible-playbook --extra-vars "machine_type=e2-small scope=limited" w3f/substrate-benchmarks/benchmarks.yaml
+          command: ansible-playbook --extra-vars "machine_type=e2-small scope=limited" w3f/benchmarks/benchmarks.yaml
           no_output_timeout: 120h
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
@@ -51,15 +51,15 @@ jobs:
 
   benchmark-e2-medium:
     docker:
-      - image: web3f/ansible:v0.0.4
+      - image: web3f/ansible:v0.0.5
     steps:
       - checkout
       - run:
           command: |
-            pip install -r w3f/substrate-benchmarks/requirements.txt
+            pip3 install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           name: benchmark e2-medium
-          command: ansible-playbook --extra-vars "machine_type=e2-medium scope=limited" w3f/substrate-benchmarks/benchmarks.yaml
+          command: ansible-playbook --extra-vars "machine_type=e2-medium scope=limited" w3f/benchmarks/benchmarks.yaml
           no_output_timeout: 120h
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
@@ -69,15 +69,15 @@ jobs:
 
   benchmark-n1-standard-1:
     docker:
-      - image: web3f/ansible:v0.0.4
+      - image: web3f/ansible:v0.0.5
     steps:
       - checkout
       - run:
           command: |
-            pip install -r w3f/substrate-benchmarks/requirements.txt
+            pip3 install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           name: benchmark n1-standard-1
-          command: ansible-playbook --extra-vars "machine_type=n1-standard-1 scope=all" w3f/substrate-benchmarks/benchmarks.yaml
+          command: ansible-playbook --extra-vars "machine_type=n1-standard-1 scope=all" w3f/benchmarks/benchmarks.yaml
           no_output_timeout: 120h
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False
@@ -87,15 +87,15 @@ jobs:
 
   benchmark-n1-standard-2:
     docker:
-      - image: web3f/ansible:v0.0.4
+      - image: web3f/ansible:v0.0.5
     steps:
       - checkout
       - run:
           command: |
-            pip install -r w3f/substrate-benchmarks/requirements.txt
+            pip3 install -r w3f/substrate-benchmarks/requirements.txt
       - run:
           name: benchmark n1-standard-2
-          command: ansible-playbook --extra-vars "machine_type=n1-standard-2 scope=all" w3f/substrate-benchmarks/benchmarks.yaml
+          command: ansible-playbook --extra-vars "machine_type=n1-standard-2 scope=all" w3f/benchmarks/benchmarks.yaml
           no_output_timeout: 120h
           environment:
             ANSIBLE_HOST_KEY_CHECKING: False

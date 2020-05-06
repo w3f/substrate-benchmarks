@@ -1,0 +1,67 @@
+---
+- name: Provision
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  tasks:
+  - name: Provision benchmark
+    include_role:
+      name: gcp
+    vars:
+      stage: CREATE
+      machine_type: "{{ machine_type }}"
+  - name: Add key to ssh-agent
+    shell: ssh-add id_ed25519
+  - git:
+      repo: 'https://github.com/w3f/substrate-benchmarks-role.git'
+      dest: roles/substrate_benchmarks
+
+- name: Wait for system ready
+  hosts: benchmark
+  gather_facts: no
+  tasks:
+  - name: Wait for system to become reachable
+    wait_for_connection:
+
+- name: Run Benchmark
+  hosts: benchmark
+  gather_facts: yes
+  tasks:
+  - ping:
+  - include_role:
+      name: substrate_benchmarks
+    vars:
+      scope: "{{ scope | default('limited') }}"
+
+- name: Clean
+  hosts: localhost
+  gather_facts: yes
+  connection: local
+  tasks:
+  - name: destroy instance
+    include_role:
+      name: gcp
+    vars:
+      stage: DESTROY
+  - name: Create resutls bucket
+    gcp_storage_bucket:
+      name: "substrate-benchmarks-results"
+      project: polkadot-benchmarks
+      auth_kind: serviceaccount
+      service_account_file: credentials.json
+      state: present
+  - name: Compress directory results
+    archive:
+      path: results
+      dest: results.tgz
+  - name: Upload results
+    gcp_storage_object:
+      action: upload
+      bucket: "substrate-benchmarks-results"
+      src: "results.tgz"
+      dest: "{{ ansible_date_time.date }}/{{ machine_type }}-{{ ansible_date_time.iso8601 }}.tgz"
+      project: polkadot-benchmarks
+      auth_kind: serviceaccount
+      service_account_file: credentials.json
+      state: present
+      overwrite: yes

@@ -1,0 +1,41 @@
+stages:
+  - benchmarks
+benchmark e2-micro:
+  stage: benchmarks
+  image: web3f/ansible:v0.0.5
+  script:
+  - eval `ssh-agent -s`
+  - pip3 install -r w3f/substrate-benchmarks/requirements.txt
+  - ansible-playbook --extra-vars "machine_type=e2-micro scope=limited" w3f/benchmarks/benchmarks.yaml
+
+benchmark e2-small:
+  stage: benchmarks
+  image: web3f/ansible:v0.0.5
+  script:
+  - eval `ssh-agent -s`
+  - pip3 install -r w3f/substrate-benchmarks/requirements.txt
+  - ansible-playbook --extra-vars "machine_type=e2-small scope=limited" w3f/benchmarks/benchmarks.yaml
+
+benchmark e2-medium:
+  stage: benchmarks
+  image: web3f/ansible:v0.0.5
+  script:
+  - eval `ssh-agent -s`
+  - pip3 install -r w3f/substrate-benchmarks/requirements.txt
+  - ansible-playbook --extra-vars "machine_type=e2-medium scope=limited" w3f/benchmarks/benchmarks.yaml
+
+benchmark n1-standard-1:
+  stage: benchmarks
+  image: web3f/ansible:v0.0.5
+  script:
+  - eval `ssh-agent -s`
+  - pip3 install -r w3f/substrate-benchmarks/requirements.txt
+  - ansible-playbook --extra-vars "machine_type=n1-standard-1 scope=all" w3f/benchmarks/benchmarks.yaml
+
+benchmark n1-standard-2:
+  stage: benchmarks
+  image: web3f/ansible:v0.0.5
+  script:
+  - eval `ssh-agent -s`
+  - pip3 install -r w3f/substrate-benchmarks/requirements.txt
+  - ansible-playbook --extra-vars "machine_type=n1-standard-2 scope=all" w3f/benchmarks/benchmarks.yaml
